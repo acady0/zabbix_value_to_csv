@@ -39,6 +39,18 @@ Options:
 - `--no-history`: do not export history.
 - `--no-trend`: do not export trends.
 
+### Finding the itemid
+You can obtain the `itemid` directly from Zabbix UI:
+- Open a graph for the metric in Zabbix.
+- Look at the browser URL and copy the value of `itemids[]`.
+
+Example:
+
+```text
+https://my_zabbix_url/history.php?action=showgraph&itemids%5B%5D=53980
+# itemid = 53980
+```
+
 Examples:
 ```bash
 # Export history + trends for item 12345
