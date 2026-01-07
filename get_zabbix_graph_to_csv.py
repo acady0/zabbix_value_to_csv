@@ -4,6 +4,7 @@ from datetime import datetime
 import argparse
 import re
 import sys
+import urllib3
 
 # -----------------------------
 # CONFIGURATION
@@ -13,16 +14,24 @@ ZABBIX_URL = "your_zabbix_url/api_jsonrpc.php"
 # ZABBIX_URL = "https://myzabbix.test/api_jsonrpc.php"
 # ZABBIX_URL = "http://myzabbix.test/api_jsonrpc.php"
 
+# SSL Verification
 VERIFY_SSL_CERT = True  # Set to False if Zabbix uses a self-signed SSL certificate
 
+if VERIFY_SSL_CERT is False:
+    print("ℹ️ SSL certificate verification is disabled. This may be insecure.")
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+# Zabbix API Token
 API_TOKEN = "YOUR_API_TOKEN_HERE"
 
 
+# Headers for API requests
 HEADERS = {
     "Authorization": f"Bearer {API_TOKEN}",
     "Content-Type": "application/json"
 }
 
+# Time range for data export
 TIME_FROM = 0
 TIME_TILL = int(datetime.now().timestamp())
 
